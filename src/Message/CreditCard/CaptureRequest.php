@@ -11,10 +11,13 @@ class CaptureRequest extends AbstractRequest
     {
         $this->validate('transactionReference');
         $data = $this->getBaseData();
-        $data['TRANXID'] = $this->getTransactionReference();
-        if ($this->getTestMode()) {
-            $data['TEST'] = 'Y';
-        }
+        $data['transaction_id'] = $this->getTransactionReference();
+
         return $data;
+    }
+
+    public function getEndpoint()
+    {
+        return $this->getParameter('baseUrl') .'/v1/transactions/authorization/capture';
     }
 }

@@ -16,14 +16,21 @@ class CreateCardRequest extends AuthorizeRequest
         $check = $this->getCheck();
         $check->validate();
         $data = $this->getBaseData();
-        $data['DDA'] = $check->getBankAccount();
-        $data['TR'] = $check->getRoutingNumber();
-        $data['CUSTID'] = $this->getCardReference();
-        $data['METHOD'] = $this->type;
-        unset($data['TRANXTYPE']);
-        if ($this->getTestMode()) {
-            $data['TEST'] = 'Y';
-        }
-        return array_merge($data, $this->getBillingData());
+        $data['check'] = [
+            'account_number' => $check->getBankAccount(),
+            'routing_number' => $check->getRoutingNumber(),
+        ];
+        $data['customer_id'] = $this->getCardReference();
+
+        $billingData = $this->getBillingData();
+        unset($billingData['amount']);
+        unset($billingData['description']);
+        unset($billingData['invoice_id']);
+        return array_merge($data, $billingData);
+    }
+
+    public function getEndpoint()
+    {
+        return $this->getParameter('baseUrl') .'/v1/customer/create';
     }
 }

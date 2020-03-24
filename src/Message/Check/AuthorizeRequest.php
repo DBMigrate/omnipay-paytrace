@@ -16,12 +16,17 @@ class AuthorizeRequest extends AbstractRequest
         $check = $this->getCheck();
         $check->validate();
         $data = $this->getBaseData();
-        $data['DDA'] = $check->getBankAccount();
-        $data['TR'] = $check->getRoutingNumber();
-        $data['AMOUNT'] = $this->getAmount();
-        if ($this->getTestMode()) {
-            $data['TEST'] = 'Y';
-        }
+        $data['check'] = [
+          'account_number' => $check->getBankAccount(),
+          'routing_number' => $check->getRoutingNumber(),
+        ];
+        $data['amount'] = $this->getAmount();
+
         return array_merge($data, $this->getBillingData());
+    }
+
+    public function getEndpoint()
+    {
+        return $this->getParameter('baseUrl') .'/v1/checks/sale/by_account';
     }
 }

@@ -13,26 +13,30 @@ class AuthorizeRequest extends AbstractRequest
         $this->validate('amount');
         $data = $this->getBaseData();
         if ($this->getCardReference()) {
-            $data['CUSTID'] = $this->getCardReference();
+            $data['customer_id'] = $this->getCardReference();
         } else {
             $data = array_merge($data, $this->getCardData());
         }
-        if ($this->getTestMode()) {
-            $data['TEST'] = 'Y';
-        }
+
         $result =  array_merge($data, $this->getBillingData());
-
-        debug_print_backtrace();
-
-        var_dump($result);
-        die(__FILE__.":".__LINE__);
+//
+//        debug_print_backtrace();
+//
+//        var_dump($result);
+//        die(__FILE__.":".__LINE__);
         return $result;
 
     }
 
     public function getEndpoint()
     {
-        return $this->getParameter('endpoint') .'/v1/transactions/authorization/keyed';
+        if ($this->getCardReference()) {
+            // valut authorization by customer id
+            return $this->getParameter('baseUrl') .'/v1/transactions/authorization/by_customer';
+        }
+
+        // keyed authorization
+        return $this->getParameter('baseUrl') .'/v1/transactions/authorization/keyed';
     }
 
 }

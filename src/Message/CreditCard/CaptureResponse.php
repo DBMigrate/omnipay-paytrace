@@ -9,6 +9,7 @@ class CaptureResponse extends AbstractResponse
      */
     public function isSuccessful()
     {
-        return !isset($this->data['ERROR']) || empty($this->data['ERROR']);
+        return isset($this->data['success']) && ($this->data['success'])
+             && (!isset($this->data['ERROR']) || empty($this->data['ERROR']));
     }
 }

@@ -21,8 +21,10 @@ class AbstractGateway extends \Omnipay\Common\AbstractGateway
         return array(
             'username' => '',
             'password' => '',
+            'integratorId' => '',
             'testMode' => false,
             'endpoint' => 'https://api.paytrace.com',
+            'baseUrl' => 'https://api.paytrace.com',
         );
     }
 
@@ -88,6 +90,16 @@ class AbstractGateway extends \Omnipay\Common\AbstractGateway
     public function setPassword($value)
     {
         return $this->setParameter('password', $value);
+    }
+
+    public function getIntegrator()
+    {
+        return $this->getParameter('integratorId');
+    }
+
+    public function setIntegratorId($value)
+    {
+        return $this->setParameter('integratorId', $value);
     }
 
     public function getEndpoint()

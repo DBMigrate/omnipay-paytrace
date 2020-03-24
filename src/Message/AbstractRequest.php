@@ -2,6 +2,8 @@
 
 namespace Omnipay\Paytrace\Message;
 
+use Omnipay\Common\Http\Exception;
+
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
     protected $method;
@@ -10,14 +12,15 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function sendData($data)
     {
+//        var_dump($data);
+//        debug_print_backtrace();
+//        die(__FILE__.':'.__LINE__)
+        ;
 
         $token = $this->getToken();
         $accessToken = $token['access_token'];
         $headers = [
-            'MIME-Version' => '1.0',
-            // wtf
-            'Content-type' => 'application/x-www-form-urlencoded',
-            'Contenttransfer-encoding' => 'text',
+            'Content-type' => 'application/json',
             'Authorization' => 'Bearer ' . $accessToken,
         ];
 
@@ -29,7 +32,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             json_encode($data)
         );
         $responseClass = $this->responseClass;
-
         return $this->response = new $responseClass($this, $httpResponse->getBody());
     }
 
@@ -53,6 +55,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->setParameter('password', $value);
     }
 
+    public function getIntegratorId()
+    {
+        return $this->getParameter('integratorId');
+    }
+
+    public function setIntegratorId($value)
+    {
+        return $this->setParameter('integratorId', $value);
+    }
+
     public function getEndpoint()
     {
         return $this->getParameter('endpoint');
@@ -61,6 +73,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function setEndpoint($value)
     {
         return $this->setParameter('endpoint', $value);
+    }
+
+    public function getBaseUrl()
+    {
+        return $this->getParameter('baseUrl');
+    }
+
+    public function setBaseUrl($value)
+    {
+        return $this->setParameter('baseUrl', $value);
     }
 
     public function getInvoiceId()
@@ -94,9 +116,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     protected function getBillingData()
     {
         $data = [
-            'AMOUNT' => $this->getAmount(),
-            'DESCRIPTION' => $this->getDescription(),
-            'INVOICE' => $this->getInvoiceId(),
+            'amount' => $this->getAmount(),
+            'description' => $this->getDescription(),
+            'invoice_id' => $this->getInvoiceId() ?? '',
         ];
 
         $source = $this->getBillingSource();
@@ -104,23 +126,27 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             return $data; // @codeCoverageIgnore
         }
 
-        $data['BNAME'] = $source->getBillingName();
-        $data['PHONE'] = $source->getPhone();
-        $data['EMAIL'] = $source->getEmail();
+        $data['phone'] = $source->getPhone();
+        $data['email'] = $source->getEmail();
 
-        $data['BADDRESS'] = $source->getBillingAddress1();
-        $data['BADDRESS2'] = $source->getBillingAddress2();
-        $data['BCITY'] = $source->getBillingCity();
-        $data['BCOUNTRY'] = $source->getBillingCountry();
-        $data['BSTATE'] = $source->getBillingState();
-        $data['BZIP'] = $source->getBillingPostcode();
+        $billingAddress = [];
+        $billingAddress['name'] = $source->getBillingName();
+        $billingAddress['street_address'] = $source->getBillingAddress1();
+        $billingAddress['street_address2'] = $source->getBillingAddress2();
+        $billingAddress['city'] = $source->getBillingCity();
+        $billingAddress['country'] = $source->getBillingCountry();
+        $billingAddress['state'] = $source->getBillingState();
+        $billingAddress['zip'] = $source->getBillingPostcode();
+        $data['billing_address'] = array_filter($billingAddress);
 
-        $data['SADDRESS'] = $source->getShippingAddress1();
-        $data['SADDRESS2'] = $source->getShippingAddress2();
-        $data['SCITY'] = $source->getShippingCity();
-        $data['SCOUNTRY'] = $source->getShippingCountry();
-        $data['SSTATE'] = $source->getShippingState();
-        $data['SZIP'] = $source->getShippingPostcode();
+        $shippingAddress = [];
+        $shippingAddress['street_address'] = $source->getShippingAddress1();
+        $shippingAddress['street_address2'] = $source->getShippingAddress2();
+        $shippingAddress['city'] = $source->getShippingCity();
+        $shippingAddress['city'] = $source->getShippingCountry();
+        $shippingAddress['state'] = $source->getShippingState();
+        $shippingAddress['zip'] = $source->getShippingPostcode();
+        $data['shipping_address'] = array_filter($shippingAddress);
 
         return $data;
     }
@@ -128,9 +154,10 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function getToken(): array
     {
+        try {
         $response = $this->httpClient->request(
             'POST',
-            $this->getEndpoint() . '/oauth/token',
+            $this->getBaseUrl() . '/oauth/token',
             [
                 'Accept' => '*/*'
             ],
@@ -139,7 +166,10 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
                 'username' => $this->getUserName(),
                 'password' => $this->getPassword(),
             ])
-        );
+        );} catch (Exception $httpEx) {
+            var_dump($httpEx->getMessage());
+            die(__FILE__.':'.__LINE__);
+        }
 
 //        debug_print_backtrace();
 

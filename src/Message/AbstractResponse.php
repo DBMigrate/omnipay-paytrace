@@ -30,13 +30,10 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
     public function getMessage()
     {
         if ($this->isSuccessful()) {
-            return isset($this->data['RESPONSE']) ? substr($this->data['RESPONSE'], 5) : null;
+            return isset($this->data['status_message']) ? $this->data['status_message'] : null;
         } else {
-            if (isset($this->data['ERROR'])) {
-                $errorParts = explode('. ', $this->data['ERROR'], 2);
-            } else {
-                $errorParts = explode('. ', $this->data['RESPONSE'], 2);
-            }
+            $key = array_key_first($this->data['errors']);
+            $errorParts = [ $key, $this->data['errors'][$key] ];
             return (count($errorParts) == 2) ? $errorParts[1] : null;
         }
     }
@@ -44,13 +41,10 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
     public function getCode()
     {
         if ($this->isSuccessful()) {
-            return isset($this->data['RESPONSE']) ? substr($this->data['RESPONSE'], 0, 3) : null;
+            return isset($this->data['response_code']) ? $this->data['response_code'] : null;
         } else {
-            if (isset($this->data['ERROR'])) {
-                $errorParts = explode('. ', $this->data['ERROR'], 2);
-            } else {
-                $errorParts = explode('. ', $this->data['RESPONSE'], 2);
-            }
+            $key = array_key_first($this->data['errors']);
+            $errorParts = [ $key, $this->data['errors'][$key] ];
             return (count($errorParts) == 2) ? $errorParts[0] : null;
         }
     }

@@ -33,11 +33,7 @@ abstract class AbstractRequest extends \Omnipay\Paytrace\Message\AbstractRequest
     protected function getBaseData()
     {
         return [
-            'TERMS' => 'Y',
-            'UN' => $this->getUserName(),
-            'PSWD' => $this->getPassword(),
-            'METHOD' => $this->method,
-            'CHECKTYPE' => $this->type,
+            'integrator_id' => $this->getIntegratorId(),
         ];
     }
 }

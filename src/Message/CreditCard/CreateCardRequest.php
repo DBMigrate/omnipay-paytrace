@@ -15,12 +15,18 @@ class CreateCardRequest extends AuthorizeRequest
         $this->validate('card');
         $data = $this->getBaseData();
         $data = array_merge($data, $this->getCardData());
-        $data['CUSTID'] = $this->getCardReference();
-        $data['METHOD'] = $this->type;
+        unset($data['csc']);
+        $data['customer_id'] = $this->getCardReference();
         unset($data['TRANXTYPE']);
-        if ($this->getTestMode()) {
-            $data['TEST'] = 'Y';
-        }
-        return array_merge($data, $this->getBillingData());
+        $billingData = $this->getBillingData();
+        unset($billingData['amount']);
+        unset($billingData['description']);
+        unset($billingData['invoice_id']);
+        return array_merge($data, $billingData);
+    }
+
+    public function getEndpoint()
+    {
+        return $this->getParameter('baseUrl') .'/v1/customer/create';
     }
 }

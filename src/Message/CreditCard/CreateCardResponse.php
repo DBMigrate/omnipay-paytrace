@@ -11,12 +11,13 @@ class CreateCardResponse extends AuthorizeResponse
      */
     public function isSuccessful()
     {
-        return isset($this->data['CUSTOMERID']) && !empty($this->data['CUSTOMERID'])
+        return isset($this->data['customer_id']) && !empty($this->data['customer_id'])
+        && isset($this->data['success']) && $this->data['success']
         && (!isset($this->data['ERROR']) || empty($this->data['ERROR']));
     }
 
     public function getCardReference()
     {
-        return isset($this->data['CUSTOMERID']) ? $this->data['CUSTOMERID'] : null;
+        return isset($this->data['customer_id']) ? $this->data['customer_id'] : null;
     }
 }
