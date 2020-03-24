@@ -21,7 +21,8 @@
     "psr-4": { "Omnipay\\Paytrace\\" : "src/" }
   },
   "require": {
-    "omnipay/common": "~2.0"
+    "omnipay/common": "^3.0",
+    "php-http/guzzle6-adapter": "*"
   },
   "require-dev": {
     "omnipay/tests": "~2.0"

@@ -10,18 +10,26 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function sendData($data)
     {
+
+        $token = $this->getToken();
+        $accessToken = $token['access_token'];
         $headers = [
             'MIME-Version' => '1.0',
+            // wtf
             'Content-type' => 'application/x-www-form-urlencoded',
             'Contenttransfer-encoding' => 'text',
+            'Authorization' => 'Bearer ' . $accessToken,
         ];
-        $httpResponse = $this->httpClient->post(
+
+
+        $httpResponse = $this->httpClient->request(
+            'POST',
             $this->getEndpoint(),
             $headers,
-            'parmlist=' . $this->preparePostData($data)
-        )
-            ->send();
+            json_encode($data)
+        );
         $responseClass = $this->responseClass;
+
         return $this->response = new $responseClass($this, $httpResponse->getBody());
     }
 
@@ -117,15 +125,31 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $data;
     }
 
-    protected function preparePostData($data)
+
+    public function getToken(): array
     {
-        $postData = '';
-        foreach ($data as $key => $value) {
-            if (empty($value)) {
-                continue;
-            }
-            $postData .= urlencode("{$key}~{$value}|");
-        }
-        return $postData;
+        $response = $this->httpClient->request(
+            'POST',
+            $this->getEndpoint() . '/oauth/token',
+            [
+                'Accept' => '*/*'
+            ],
+            http_build_query([
+                'grant_type' => 'password',
+                'username' => $this->getUserName(),
+                'password' => $this->getPassword(),
+            ])
+        );
+
+//        debug_print_backtrace();
+
+        $result =  \GuzzleHttp\json_decode($response->getBody(), true);
+
+//        die(__FILE__.':'.__LINE__);
+
+        return $result;
     }
+
+
+
 }

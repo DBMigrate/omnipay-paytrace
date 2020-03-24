@@ -7,9 +7,7 @@ class AuthorizeRequest extends AbstractRequest
     protected $type = 'Authorization';
     protected $responseClass = 'Omnipay\Paytrace\Message\CreditCard\AuthorizeResponse';
 
-    /**
-     * @inheritdoc
-     */
+
     public function getData()
     {
         $this->validate('amount');
@@ -22,6 +20,19 @@ class AuthorizeRequest extends AbstractRequest
         if ($this->getTestMode()) {
             $data['TEST'] = 'Y';
         }
-        return array_merge($data, $this->getBillingData());
+        $result =  array_merge($data, $this->getBillingData());
+
+        debug_print_backtrace();
+
+        var_dump($result);
+        die(__FILE__.":".__LINE__);
+        return $result;
+
     }
+
+    public function getEndpoint()
+    {
+        return $this->getParameter('endpoint') .'/v1/transactions/authorization/keyed';
+    }
+
 }
