@@ -1,5 +1,5 @@
 {
-  "name": "softcommerce/omnipay-paytrace",
+  "name": "leszczuu/omnipay-paytrace",
   "type": "library",
   "description": "PayTrace gateway for the Omnipay payment processing library",
   "keywords": [
@@ -9,14 +9,7 @@
     "payment",
     "gateway"
   ],
-  "homepage": "https://github.com/iddqdidkfa/omnipay-paytrace",
   "license": "MIT",
-  "authors": [
-    {
-      "name": "Oleg Ilyushyn",
-      "email": "iloa.exec@gmail.com"
-    }
-  ],
   "autoload": {
     "psr-4": { "Omnipay\\Paytrace\\" : "src/" }
   },
