@@ -19,11 +19,7 @@ class AuthorizeRequest extends AbstractRequest
         }
 
         $result =  array_merge($data, $this->getBillingData());
-//
-//        debug_print_backtrace();
-//
-//        var_dump($result);
-//        die(__FILE__.":".__LINE__);
+
         return $result;
 
     }

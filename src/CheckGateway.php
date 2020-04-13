@@ -13,4 +13,6 @@ class CheckGateway extends AbstractGateway
     {
         return 'PayTrace Check';
     }
+
+
 }

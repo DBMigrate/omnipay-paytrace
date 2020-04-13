@@ -2,11 +2,6 @@
 
 namespace Omnipay\Paytrace;
 
-/**
- * @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface completePurchase(array $options = array())
- * @method \Omnipay\Common\Message\RequestInterface deleteCard(array $options = array())
- */
 class AbstractGateway extends \Omnipay\Common\AbstractGateway
 {
     const GATEWAY_TYPE = '';
@@ -110,12 +105,5 @@ class AbstractGateway extends \Omnipay\Common\AbstractGateway
     public function setEndpoint($value)
     {
         return $this->setParameter('endpoint', $value);
-    }
-
-    public function __call($name, $arguments)
-    {
-        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface completeAuthorize(array $options = array())
-        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface completePurchase(array $options = array())
-        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface deleteCard(array $options = array())
     }
 }

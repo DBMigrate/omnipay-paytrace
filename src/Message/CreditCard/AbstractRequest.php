@@ -4,8 +4,10 @@ namespace Omnipay\Paytrace\Message\CreditCard;
 
 abstract class AbstractRequest extends \Omnipay\Paytrace\Message\AbstractRequest
 {
-    // why exactly this is needed?
-//    protected $method = 'ProcessTranx';
+
+    public function setEncryptedNumber($data) {
+        $this->setParameter('encryptedNumber', $data);
+    }
 
     protected function getBillingSource()
     {
@@ -22,12 +24,13 @@ abstract class AbstractRequest extends \Omnipay\Paytrace\Message\AbstractRequest
     protected function getCardData()
     {
         $this->validate('card');
-        $this->getCard()->validate();
         $card = $this->getCard();
         $cardData = [];
-        //TODO: enable encrypted number
-        $cardData['number'] = $card->getNumber();
-        //TODO 2 or 4 digit (4 also ok)
+        if ( $this->getParameter('encryptedNumber')) {
+            $cardData['encrypted_number'] = $this->getParameter('encryptedNumber');
+        } else {
+            $cardData['number'] = $card->getNumber();
+        }
         $cardData['expiration_year'] = substr($card->getExpiryYear(), -2);
         $cardData['expiration_month'] = str_pad($card->getExpiryMonth(), 2, '0', STR_PAD_LEFT);
 

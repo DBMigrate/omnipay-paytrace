@@ -10,16 +10,7 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
 
     public function __construct(RequestInterface $request, $data)
     {
-        $parsedData = [];
-        $responseArr = explode('|', (string)$data);
-        foreach ($responseArr as $pair) {
-            if (strlen(trim($pair)) == 0) {
-                continue;
-            }
-            $tmp = explode('~', $pair);
-            $parsedData[$tmp[0]] = $tmp[1];
-        }
-        parent::__construct($request, $parsedData);
+        parent::__construct($request, json_decode($data, true));
     }
 
     public function getTransactionReference()
@@ -30,7 +21,7 @@ abstract class AbstractResponse extends \Omnipay\Common\Message\AbstractResponse
     public function getMessage()
     {
         if ($this->isSuccessful()) {
-            return isset($this->data['status_message']) ? $this->data['status_message'] : null;
+            return isset($this->data['success']) ? $this->data['status_message'] : null;
         } else {
             $key = array_key_first($this->data['errors']);
             $errorParts = [ $key, $this->data['errors'][$key] ];
