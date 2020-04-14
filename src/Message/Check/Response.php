@@ -1,8 +1,8 @@
 <?php
 
-namespace Omnipay\Paytrace\Message\Check;
+namespace Omnipay\TalusPay\Message\Check;
 
-use Omnipay\Paytrace\Message\AbstractResponse;
+use Omnipay\TalusPay\Message\AbstractResponse;
 
 class Response extends AbstractResponse
 {

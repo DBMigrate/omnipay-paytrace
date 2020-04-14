@@ -1,11 +1,11 @@
 <?php
 
-namespace Omnipay\Paytrace\Message\CreditCard;
+namespace Omnipay\TalusPay\Message\CreditCard;
 
 class CreateCardRequest extends AuthorizeRequest
 {
     protected $type = 'CreateCustomer';
-    protected $responseClass = 'Omnipay\Paytrace\Message\CreditCard\CreateCardResponse';
+    protected $responseClass = 'Omnipay\TalusPay\Message\CreditCard\CreateCardResponse';
 
     /**
      * @inheritdoc

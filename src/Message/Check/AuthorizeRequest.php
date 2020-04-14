@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Paytrace\Message\Check;
+namespace Omnipay\TalusPay\Message\Check;
 
 class AuthorizeRequest extends AbstractRequest
 {

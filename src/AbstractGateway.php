@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Paytrace;
+namespace Omnipay\TalusPay;
 
 class AbstractGateway extends \Omnipay\Common\AbstractGateway
 {
@@ -26,7 +26,7 @@ class AbstractGateway extends \Omnipay\Common\AbstractGateway
     public function authorize(array $params = [])
     {
         return $this->createRequest(
-            '\Omnipay\Paytrace\Message\\' . static::GATEWAY_TYPE . '\AuthorizeRequest',
+            '\Omnipay\TalusPay\Message\\' . static::GATEWAY_TYPE . '\AuthorizeRequest',
             $params
         );
     }
@@ -34,7 +34,7 @@ class AbstractGateway extends \Omnipay\Common\AbstractGateway
     public function createCard(array $params = [])
     {
         return $this->createRequest(
-            '\Omnipay\Paytrace\Message\\' . static::GATEWAY_TYPE . '\CreateCardRequest',
+            '\Omnipay\TalusPay\Message\\' . static::GATEWAY_TYPE . '\CreateCardRequest',
             $params
         );
     }
@@ -42,29 +42,29 @@ class AbstractGateway extends \Omnipay\Common\AbstractGateway
     public function updateCard(array $params = [])
     {
         return $this->createRequest(
-            '\Omnipay\Paytrace\Message\\' . static::GATEWAY_TYPE . '\UpdateCardRequest',
+            '\Omnipay\TalusPay\Message\\' . static::GATEWAY_TYPE . '\UpdateCardRequest',
             $params
         );
     }
 
     public function capture(array $params = [])
     {
-        return $this->createRequest('\Omnipay\Paytrace\Message\\' . static::GATEWAY_TYPE . '\CaptureRequest', $params);
+        return $this->createRequest('\Omnipay\TalusPay\Message\\' . static::GATEWAY_TYPE . '\CaptureRequest', $params);
     }
 
     public function purchase(array $params = [])
     {
-        return $this->createRequest('\Omnipay\Paytrace\Message\\' . static::GATEWAY_TYPE . '\PurchaseRequest', $params);
+        return $this->createRequest('\Omnipay\TalusPay\Message\\' . static::GATEWAY_TYPE . '\PurchaseRequest', $params);
     }
 
     public function void(array $params = [])
     {
-        return $this->createRequest('\Omnipay\Paytrace\Message\\' . static::GATEWAY_TYPE . '\VoidRequest', $params);
+        return $this->createRequest('\Omnipay\TalusPay\Message\\' . static::GATEWAY_TYPE . '\VoidRequest', $params);
     }
 
     public function refund(array $params = [])
     {
-        return $this->createRequest('\Omnipay\Paytrace\Message\\' . static::GATEWAY_TYPE . '\RefundRequest', $params);
+        return $this->createRequest('\Omnipay\TalusPay\Message\\' . static::GATEWAY_TYPE . '\RefundRequest', $params);
     }
 
     public function getUserName()

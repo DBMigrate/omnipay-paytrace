@@ -1,8 +1,8 @@
 <?php
 
-namespace Omnipay\Paytrace\Message\CreditCard;
+namespace Omnipay\TalusPay\Message\CreditCard;
 
-abstract class AbstractRequest extends \Omnipay\Paytrace\Message\AbstractRequest
+abstract class AbstractRequest extends \Omnipay\TalusPay\Message\AbstractRequest
 {
 
     public function setEncryptedNumber($data) {

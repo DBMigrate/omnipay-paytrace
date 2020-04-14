@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Omnipay\Paytrace;
+namespace Omnipay\TalusPay;
 
 
 class Card

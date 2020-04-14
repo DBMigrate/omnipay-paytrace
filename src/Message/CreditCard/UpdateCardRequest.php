@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Paytrace\Message\CreditCard;
+namespace Omnipay\TalusPay\Message\CreditCard;
 
 class UpdateCardRequest extends CreateCardRequest
 {

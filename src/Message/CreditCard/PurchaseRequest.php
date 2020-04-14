@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Paytrace\Message\CreditCard;
+namespace Omnipay\TalusPay\Message\CreditCard;
 
 class PurchaseRequest extends AuthorizeRequest
 {

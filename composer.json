@@ -1,7 +1,7 @@
 {
-  "name": "leszczuu/omnipay-paytrace",
+  "name": "leszczuu/omnipay-taluspay",
   "type": "library",
-  "description": "PayTrace gateway for the Omnipay payment processing library",
+  "description": "Taluspay gateway for the Omnipay payment processing library",
   "keywords": [
     "paytrace",
     "omnipay",
@@ -11,7 +11,7 @@
   ],
   "license": "MIT",
   "autoload": {
-    "psr-4": { "Omnipay\\Paytrace\\" : "src/" }
+    "psr-4": { "Omnipay\\TalusPay\\" : "src/" }
   },
   "require": {
     "omnipay/common": "^3.0",

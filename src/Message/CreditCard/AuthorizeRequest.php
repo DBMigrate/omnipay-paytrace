@@ -1,11 +1,11 @@
 <?php
 
-namespace Omnipay\Paytrace\Message\CreditCard;
+namespace Omnipay\TalusPay\Message\CreditCard;
 
 class AuthorizeRequest extends AbstractRequest
 {
     protected $type = 'Authorization';
-    protected $responseClass = 'Omnipay\Paytrace\Message\CreditCard\AuthorizeResponse';
+    protected $responseClass = 'Omnipay\TalusPay\Message\CreditCard\AuthorizeResponse';
 
 
     public function getData()

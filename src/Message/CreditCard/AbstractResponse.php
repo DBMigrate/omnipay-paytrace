@@ -1,8 +1,8 @@
 <?php
 
-namespace Omnipay\Paytrace\Message\CreditCard;
+namespace Omnipay\TalusPay\Message\CreditCard;
 
-abstract class AbstractResponse extends \Omnipay\Paytrace\Message\AbstractResponse
+abstract class AbstractResponse extends \Omnipay\TalusPay\Message\AbstractResponse
 {
     //TODO: not needed probably
     const TRANSACTION_KEY = 'TRANSACTIONID';

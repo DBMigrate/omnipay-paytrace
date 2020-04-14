@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Paytrace\Message;
+namespace Omnipay\TalusPay\Message;
 
 use Omnipay\Common\Message\RequestInterface;
 

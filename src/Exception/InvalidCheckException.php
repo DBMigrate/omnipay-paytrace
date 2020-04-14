@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Paytrace\Exception;
+namespace Omnipay\TalusPay\Exception;
 
 use Omnipay\Common\Exception\OmnipayException;
 

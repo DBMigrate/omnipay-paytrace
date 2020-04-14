@@ -1,11 +1,11 @@
 <?php
 
-namespace Omnipay\Paytrace\Message\CreditCard;
+namespace Omnipay\TalusPay\Message\CreditCard;
 
 class RefundRequest extends AbstractRequest
 {
     protected $type = 'Refund';
-    protected $responseClass = 'Omnipay\Paytrace\Message\CreditCard\CaptureResponse';
+    protected $responseClass = 'Omnipay\TalusPay\Message\CreditCard\CaptureResponse';
 
     public function getData()
     {

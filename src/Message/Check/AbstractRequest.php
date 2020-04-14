@@ -1,15 +1,15 @@
 <?php
 
-namespace Omnipay\Paytrace\Message\Check;
+namespace Omnipay\TalusPay\Message\Check;
 
-use Omnipay\Paytrace\Check;
+use Omnipay\TalusPay\Check;
 
-abstract class AbstractRequest extends \Omnipay\Paytrace\Message\AbstractRequest
+abstract class AbstractRequest extends \Omnipay\TalusPay\Message\AbstractRequest
 {
-    protected $responseClass = 'Omnipay\Paytrace\Message\Check\Response';
+    protected $responseClass = 'Omnipay\TalusPay\Message\Check\Response';
 
     /**
-     * @return \Omnipay\Paytrace\Check
+     * @return \Omnipay\TalusPay\Check
      */
     public function getCheck()
     {

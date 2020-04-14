@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Paytrace;
+namespace Omnipay\TalusPay;
 
 class CheckGateway extends AbstractGateway
 {

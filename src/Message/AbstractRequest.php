@@ -1,6 +1,6 @@
 <?php
 
-namespace Omnipay\Paytrace\Message;
+namespace Omnipay\TalusPay\Message;
 
 use Omnipay\Common\Http\Exception;
 
@@ -108,7 +108,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     }
 
     /**
-     * @return \Omnipay\Common\CreditCard|\Omnipay\Paytrace\Check
+     * @return \Omnipay\Common\CreditCard|\Omnipay\TalusPay\Check
      */
     protected function getBillingSource()
     {
