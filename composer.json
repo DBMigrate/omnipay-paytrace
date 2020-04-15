@@ -1,5 +1,5 @@
 {
-  "name": "leszczuu/omnipay-taluspay",
+  "name": "dbmigrate/omnipay-taluspay",
   "type": "library",
   "description": "Taluspay gateway for the Omnipay payment processing library",
   "keywords": [
