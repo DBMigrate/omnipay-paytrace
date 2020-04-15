@@ -1,5 +1,5 @@
 {
-  "name": "dbmigrate/omnipay-paytrace",
+  "name": "db-migrate/omnipay-paytrace",
   "type": "library",
   "description": "Taluspay whitelabeled Paytrace gateway for the Omnipay payment processing library",
   "version": "v2.0.0",
